@@ -1,0 +1,243 @@
+
+.pdf-page {
+  min-height: 100vh;
+  padding: 35px;
+  background: #f7f7fc;
+  color: #202033;
+}
+
+.pdf-header {
+  margin-bottom: 30px;
+}
+
+.pdf-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: transparent;
+  color: #7047eb;
+  cursor: pointer;
+  margin-bottom: 25px;
+  font-size: 15px;
+}
+
+.pdf-header h1 {
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+
+.pdf-header p,
+.pdf-upload-box p,
+.pdf-ask-section p {
+  color: #777;
+}
+
+.pdf-upload-box {
+  background: white;
+  border: 2px dashed #c9bafc;
+  border-radius: 16px;
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 25px;
+}
+
+.pdf-upload-icon {
+  background: #eee9ff;
+  color: #7047eb;
+  padding: 18px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+.pdf-upload-box h2 {
+  margin-bottom: 5px;
+}
+
+.pdf-upload-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #7047eb;
+  color: white;
+  padding: 13px 22px;
+  border-radius: 9px;
+  cursor: pointer;
+  margin: 20px 0 12px;
+}
+
+.pdf-upload-box > span {
+  font-size: 13px;
+  color: #888;
+}
+
+.pdf-file-info {
+  background: white;
+  padding: 18px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.pdf-file-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #7047eb;
+  min-width: 0;
+}
+
+.pdf-file-name strong,
+.pdf-file-name span {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.pdf-file-name strong {
+  color: #222;
+}
+
+.pdf-file-name span {
+  color: #888;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.pdf-remove {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: none;
+  background: #fff0f0;
+  color: #e53935;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.pdf-workspace {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 22px;
+}
+
+.pdf-preview,
+.pdf-tool-card,
+.pdf-ask-section {
+  background: white;
+  padding: 22px;
+  border-radius: 14px;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.04);
+}
+
+.pdf-preview h2,
+.pdf-ask-section h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 19px;
+  margin-bottom: 18px;
+}
+
+.pdf-frame {
+  width: 100%;
+  height: 520px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+.pdf-tools {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.pdf-tool-card svg {
+  color: #7047eb;
+}
+
+.pdf-tool-card h3 {
+  margin: 12px 0 7px;
+}
+
+.pdf-tool-card p {
+  color: #777;
+  font-size: 14px;
+}
+
+.pdf-tool-card button,
+.pdf-ask-section form button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  background: #7047eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 16px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.pdf-ask-section {
+  margin-top: 22px;
+}
+
+.pdf-ask-section form {
+  display: flex;
+  gap: 10px;
+}
+
+.pdf-ask-section input {
+  flex: 1;
+  min-width: 0;
+  padding: 13px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline-color: #7047eb;
+}
+
+.pdf-ask-section form button {
+  margin-top: 0;
+}
+
+@media (max-width: 850px) {
+  .pdf-workspace {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 550px) {
+  .pdf-page {
+    padding: 18px;
+  }
+
+  .pdf-header h1 {
+    font-size: 24px;
+  }
+
+  .pdf-file-info {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .pdf-frame {
+    height: 400px;
+  }
+
+  .pdf-ask-section form {
+    flex-direction: column;
+  }
+
+  .pdf-ask-section form button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,22 @@
+
+.back-dashboard-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 17px;
+  margin-bottom: 22px;
+  background: white;
+  color: #7057e8;
+  border: 1px solid #e5e0ff;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.back-dashboard-btn:hover {
+  background: #7057e8;
+  color: white;
+  transform: translateX(-3px);
+}

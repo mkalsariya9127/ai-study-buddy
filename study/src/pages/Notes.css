@@ -1,0 +1,274 @@
+
+.notes-page {
+  min-height: 100vh;
+  padding: 35px;
+  background: #f7f7ff;
+  color: #17143d;
+  font-family: Arial, sans-serif;
+}
+
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 28px;
+}
+
+.notes-header h1 {
+  font-size: 30px;
+  margin: 0 0 8px;
+}
+
+.notes-header p {
+  color: #77758d;
+  margin: 0;
+}
+
+.add-note-btn,
+.save-note-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  background: #6546ed;
+  color: white;
+  border: none;
+  padding: 13px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.add-note-btn:hover,
+.save-note-btn:hover {
+  background: #5032d5;
+}
+
+.notes-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  border: 1px solid #e5e1fa;
+  padding: 14px 18px;
+  border-radius: 12px;
+  margin-bottom: 22px;
+  color: #7256e9;
+}
+
+.notes-search input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 15px;
+}
+
+.notes-summary {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: white;
+  padding: 18px;
+  border-radius: 13px;
+  margin-bottom: 25px;
+  border: 1px solid #eeeafa;
+}
+
+.notes-summary-icon {
+  background: #eeeaff;
+  color: #6546ed;
+  padding: 13px;
+  border-radius: 12px;
+}
+
+.notes-summary h3 {
+  margin: 0 0 5px;
+}
+
+.notes-summary p {
+  margin: 0;
+  color: #858397;
+  font-size: 13px;
+}
+
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.note-card {
+  background: white;
+  padding: 22px;
+  border-radius: 15px;
+  border: 1px solid #eae6fa;
+  box-shadow: 0 5px 18px rgba(50, 35, 120, 0.05);
+}
+
+.note-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #6546ed;
+  margin-bottom: 20px;
+}
+
+.note-subject {
+  background: #eeeaff;
+  color: #6546ed;
+  padding: 6px 11px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.note-card h3 {
+  font-size: 19px;
+  margin: 0 0 12px;
+}
+
+.note-content {
+  color: #77758d;
+  line-height: 1.7;
+  font-size: 14px;
+  min-height: 90px;
+  overflow-wrap: anywhere;
+}
+
+.note-card-bottom {
+  border-top: 1px solid #eeeafa;
+  padding-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #9290a2;
+  font-size: 12px;
+  gap: 10px;
+}
+
+.note-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.note-actions button,
+.close-note {
+  border: none;
+  background: #f0edff;
+  color: #6546ed;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+}
+
+.note-actions .delete-note {
+  color: #e74c65;
+  background: #fff0f1;
+}
+
+.note-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(18, 15, 48, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.note-form {
+  background: white;
+  width: 100%;
+  max-width: 500px;
+  padding: 28px;
+  border-radius: 17px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.form-heading h2 {
+  margin: 0;
+}
+
+.note-form label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.note-form input,
+.note-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px;
+  border: 1px solid #e3def6;
+  border-radius: 9px;
+  outline: none;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.note-form input:focus,
+.note-form textarea:focus {
+  border-color: #6546ed;
+}
+
+.note-form textarea {
+  resize: vertical;
+}
+
+.save-note-btn {
+  margin-top: 10px;
+}
+
+.empty-notes {
+  text-align: center;
+  padding: 60px 15px;
+  color: #77758d;
+}
+
+.empty-notes svg {
+  color: #6546ed;
+}
+
+.empty-notes h3 {
+  color: #17143d;
+}
+
+@media (max-width: 900px) {
+  .notes-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .notes-page {
+    padding: 20px 14px;
+  }
+
+  .notes-header {
+    align-items: flex-start;
+  }
+
+  .notes-header h1 {
+    font-size: 24px;
+  }
+
+  .add-note-btn {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .notes-grid {
+    grid-template-columns: 1fr;
+  }
+}

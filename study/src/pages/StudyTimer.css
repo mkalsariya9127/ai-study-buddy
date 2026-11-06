@@ -1,0 +1,202 @@
+.study-timer-page {
+  min-height: 100vh;
+  background: #f7f8fc;
+  color: #24243b;
+  font-family: Inter, Arial, sans-serif;
+}
+
+.study-timer-header {
+  height: 75px;
+  padding: 0 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  border-bottom: 1px solid #e9eaf1;
+}
+
+.study-timer-back,
+.study-timer-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.study-timer-back {
+  color: #77798c;
+  font-size: 14px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.study-timer-back:hover {
+  color: #6952dc;
+}
+
+.study-timer-title {
+  color: #6952dc;
+  font-weight: 700;
+}
+
+.study-timer-content {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 50px 20px;
+}
+
+.study-timer-card {
+  padding: 44px 30px;
+  background: white;
+  border: 1px solid #e9eaf1;
+  border-radius: 24px;
+  box-shadow: 0 10px 35px #24243b0a;
+  text-align: center;
+}
+
+.timer-mode-pills {
+  display: inline-flex;
+  gap: 8px;
+  padding: 6px;
+  background: #f2f3f8;
+  border-radius: 30px;
+  margin-bottom: 30px;
+}
+
+.timer-pill {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #696b7e;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.timer-pill.active {
+  background: white;
+  color: #6952dc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.study-timer-icon {
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 16px;
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
+  background: #f0eaff;
+  color: #6952dc;
+}
+
+.study-timer-eyebrow {
+  color: #7966dc;
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+
+.timer-countdown {
+  margin: 6px 0 12px;
+  font-size: 58px;
+  font-weight: 800;
+  color: #1f1f33;
+  letter-spacing: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.study-timer-card > p {
+  max-width: 420px;
+  margin: 0 auto 28px;
+  color: #898b9d;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.timer-action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.timer-control-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+
+.timer-control-btn.start {
+  background: #6952dc;
+  color: white;
+  box-shadow: 0 4px 15px rgba(105, 82, 220, 0.35);
+}
+
+.timer-control-btn.start:hover {
+  background: #573fca;
+}
+
+.timer-control-btn.pause {
+  background: #ffaa00;
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 170, 0, 0.3);
+}
+
+.timer-control-btn.pause:hover {
+  background: #e69900;
+}
+
+.timer-control-btn.reset {
+  background: #f1f2f7;
+  color: #555770;
+}
+
+.timer-control-btn.reset:hover {
+  background: #e3e5ed;
+  color: #1f1f33;
+}
+
+.timer-stats {
+  padding-top: 20px;
+  border-top: 1px solid #f0f1f5;
+  font-size: 13px;
+  color: #838598;
+}
+
+.timer-stats strong {
+  color: #6952dc;
+}
+
+@media (max-width: 480px) {
+  .study-timer-header {
+    padding: 0 15px;
+  }
+
+  .study-timer-content {
+    padding: 30px 15px;
+  }
+
+  .study-timer-card {
+    padding: 30px 15px;
+  }
+
+  .timer-countdown {
+    font-size: 44px;
+  }
+
+  .timer-mode-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
