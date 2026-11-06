@@ -4,8 +4,6 @@ import "./Notes.css";
 import BackButton from "../components/BackButton";
 import { notesAPI } from "../services/api";
 
-const initialDefaultNotes = [];
-
 function Notes() {
   const [notes, setNotes] = useState(() => {
     try {
