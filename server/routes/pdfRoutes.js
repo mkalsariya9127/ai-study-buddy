@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
-const { analyzePDF } = require("../controllers/pdfController");
+const { analyzePDF, generateAnswerSheet } = require("../controllers/pdfController");
 const { protect } = require("../middleware/authMiddleware");
 
 // Use memory storage for fast processing without disk clutter
@@ -21,5 +21,6 @@ const upload = multer({
 });
 
 router.post("/analyze", protect, upload.single("pdf"), analyzePDF);
+router.post("/generate-answersheet", protect, upload.single("pdf"), generateAnswerSheet);
 
 module.exports = router;

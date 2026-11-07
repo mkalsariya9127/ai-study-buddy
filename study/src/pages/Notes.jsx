@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Plus, Search, Pencil, Trash2, BookOpen, X, Save } from "lucide-react";
+import { Plus, Search, Pencil, Trash2, BookOpen, X, Save, Printer } from "lucide-react";
 import "./Notes.css";
 import BackButton from "../components/BackButton";
 import { notesAPI } from "../services/api";
@@ -146,6 +146,48 @@ function Notes() {
     }
   };
 
+  const printNote = (note) => {
+    const printWindow = window.open("", "_blank");
+    if (!printWindow) {
+      window.print();
+      return;
+    }
+    const displayDate = note.date || "Today";
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>${note.title} - AI Study Buddy Notes</title>
+          <style>
+            body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 40px; color: #1e293b; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+            .header { border-bottom: 2px solid #7047eb; padding-bottom: 15px; margin-bottom: 25px; }
+            .badge { background: #efeaff; color: #7047eb; font-weight: bold; font-size: 12px; padding: 4px 10px; border-radius: 4px; display: inline-block; }
+            h1 { font-size: 26px; margin: 10px 0 5px; color: #0f172a; }
+            .meta { color: #64748b; font-size: 13px; }
+            .content { white-space: pre-wrap; font-size: 15px; margin-top: 20px; }
+            .footer { margin-top: 50px; padding-top: 15px; border-top: 1px solid #e2e8f0; font-size: 12px; color: #94a3b8; display: flex; justify-content: space-between; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <span class="badge">AI STUDY BUDDY NOTES</span>
+            <h1>${note.title}</h1>
+            <div class="meta">Subject: ${note.subject || "General"} &bull; Date: ${displayDate}</div>
+          </div>
+          <div class="content">${note.content}</div>
+          <div class="footer">
+            <span>Printed from AI Study Buddy</span>
+            <span>Personal Study Collection</span>
+          </div>
+          <script>
+            window.onload = function() { window.print(); };
+          </script>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+  };
+
   return (
     <div className="notes-page">
       <BackButton />
@@ -240,6 +282,14 @@ function Notes() {
               <span>{note.date}</span>
 
               <div className="note-actions">
+                <button
+                  type="button"
+                  onClick={() => printNote(note)}
+                  title="Print / Save Note as PDF"
+                >
+                  <Printer size={17} />
+                </button>
+
                 <button onClick={() => editNote(note)} title="Edit">
                   <Pencil size={17} />
                 </button>

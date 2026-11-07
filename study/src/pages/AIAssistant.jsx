@@ -15,6 +15,10 @@ import {
   Check,
   MessageSquare,
   Code2,
+  Mic,
+  MicOff,
+  Volume2,
+  VolumeX,
 } from "lucide-react";
 import "./AIAssistant.css";
 import { aiAPI } from "../services/api";
@@ -192,7 +196,105 @@ function AIAssistant() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState(null);
+  const [isListening, setIsListening] = useState(false);
+  const [speakingIndex, setSpeakingIndex] = useState(null);
   const bottomRef = useRef(null);
+  const recognitionRef = useRef(null);
+
+  const toggleSpeechRecognition = () => {
+    if (isListening) {
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+      setIsListening(false);
+      return;
+    }
+
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      alert("Voice input is not supported in this browser. Please use Chrome, Edge, or Safari.");
+      return;
+    }
+
+    try {
+      const recognition = new SpeechRecognition();
+      recognition.lang = "en-IN";
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.onstart = () => {
+        setIsListening(true);
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        if (transcript) {
+          setInput((prev) => (prev ? `${prev} ${transcript}` : transcript));
+        }
+      };
+
+      recognition.onerror = (event) => {
+        console.warn("Speech recognition error:", event.error);
+        setIsListening(false);
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognitionRef.current = recognition;
+      recognition.start();
+    } catch (err) {
+      console.warn("Speech recognition initiation error:", err);
+      setIsListening(false);
+    }
+  };
+
+  const toggleSpeechOutput = (index, text) => {
+    if (!window.speechSynthesis) {
+      alert("Text to speech is not supported in this browser.");
+      return;
+    }
+
+    if (speakingIndex === index) {
+      window.speechSynthesis.cancel();
+      setSpeakingIndex(null);
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+    const cleanText = text
+      .replace(/[*#`_>-]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+
+    const voices = window.speechSynthesis.getVoices();
+    const preferredVoice =
+      voices.find((v) => v.lang.includes("gu") || v.lang.includes("hi")) ||
+      voices.find((v) => v.lang.includes("en-IN")) ||
+      voices[0];
+
+    if (preferredVoice) {
+      utterance.voice = preferredVoice;
+    }
+
+    utterance.onend = () => {
+      setSpeakingIndex(null);
+    };
+
+    utterance.onerror = () => {
+      setSpeakingIndex(null);
+    };
+
+    setSpeakingIndex(index);
+    window.speechSynthesis.speak(utterance);
+  };
 
   // Active session object
   const activeSession =
@@ -629,6 +731,26 @@ function AIAssistant() {
                         )}
                       </button>
                     )}
+                    {msg.role === "assistant" && (
+                      <button
+                        type="button"
+                        className="ai-msg-action-btn"
+                        onClick={() => toggleSpeechOutput(index, msg.text)}
+                        title={speakingIndex === index ? "Stop audio" : "Listen to answer"}
+                      >
+                        {speakingIndex === index ? (
+                          <>
+                            <VolumeX size={14} color="#e11d48" />
+                            <span style={{ color: "#e11d48" }}>Stop</span>
+                          </>
+                        ) : (
+                          <>
+                            <Volume2 size={14} />
+                            <span>Listen</span>
+                          </>
+                        )}
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}
@@ -668,6 +790,16 @@ function AIAssistant() {
               onChange={(e) => setInput(e.target.value)}
               disabled={loading}
             />
+            <button
+              type="button"
+              className={`ai-mic-btn ${isListening ? "listening" : ""}`}
+              onClick={toggleSpeechRecognition}
+              title={isListening ? "Listening... Click to stop" : "Speak your question (Voice AI)"}
+              disabled={loading}
+              aria-label="Voice input"
+            >
+              {isListening ? <MicOff size={18} color="#e11d48" /> : <Mic size={18} />}
+            </button>
             <button
               type="submit"
               disabled={!input.trim() || loading}

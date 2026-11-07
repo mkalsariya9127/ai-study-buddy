@@ -10,6 +10,7 @@ import {
   ArrowLeft,
   Send,
   X,
+  Printer,
 } from "lucide-react";
 import "./PDFAnalyzer.css";
 import { pdfAPI, aiAPI } from "../services/api";
@@ -22,6 +23,9 @@ function PDFAnalyzer() {
   const [asking, setAsking] = useState(false);
   const [analysisResult, setAnalysisResult] = useState(null);
   const [qaList, setQaList] = useState([]);
+  const [generatingAnswerBook, setGeneratingAnswerBook] = useState(false);
+  const [showAnswerBookModal, setShowAnswerBookModal] = useState(false);
+  const [answerBookData, setAnswerBookData] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -83,6 +87,31 @@ function PDFAnalyzer() {
     }
   };
 
+  const handleGenerateAnswerBook = async () => {
+    if (!pdf) {
+      alert("Please upload a PDF first.");
+      return;
+    }
+    setGeneratingAnswerBook(true);
+    try {
+      const res = await pdfAPI.generateAnswerSheet(pdf);
+      if (res.success && res.answerBook) {
+        setAnswerBookData({
+          ...res.answerBook,
+          generatedDate: new Date().toLocaleDateString("en-IN", { dateStyle: "long" }),
+        });
+        setShowAnswerBookModal(true);
+      } else {
+        alert(res?.message || "Could not generate answer book from this PDF.");
+      }
+    } catch (err) {
+      alert("Error generating answer book. Please try again.");
+      console.error(err);
+    } finally {
+      setGeneratingAnswerBook(false);
+    }
+  };
+
   const handleQuestion = async (e) => {
     e.preventDefault();
 
@@ -130,6 +159,8 @@ function PDFAnalyzer() {
     setPdfURL("");
     setAnalysisResult(null);
     setQaList([]);
+    setAnswerBookData(null);
+    setShowAnswerBookModal(false);
   };
 
   return (
@@ -226,6 +257,15 @@ function PDFAnalyzer() {
                   Generate Questions
                 </button>
               </div>
+
+              <div className="pdf-tool-card">
+                <Printer size={25} />
+                <h3>Printable Answer Book</h3>
+                <p>Generate clean, printable assignment answers.</p>
+                <button onClick={handleGenerateAnswerBook} disabled={generatingAnswerBook}>
+                  {generatingAnswerBook ? "Generating..." : "Generate Answer Book"}
+                </button>
+              </div>
             </div>
           </div>
 
@@ -279,6 +319,68 @@ function PDFAnalyzer() {
             )}
           </div>
         </>
+      )}
+
+      {/* Printable Answer Book Modal & Sheet */}
+      {showAnswerBookModal && answerBookData && (
+        <div className="printable-modal-overlay">
+          <div className="printable-modal-content">
+            <div className="printable-modal-actions no-print">
+              <button
+                type="button"
+                className="btn-print-primary"
+                onClick={() => window.print()}
+              >
+                <Printer size={18} /> Print Answer Book (A4)
+              </button>
+              <button
+                type="button"
+                className="btn-modal-close"
+                onClick={() => setShowAnswerBookModal(false)}
+              >
+                <X size={18} /> Close
+              </button>
+            </div>
+
+            <div className="printable-sheet-scroll">
+              <div className="printable-answer-sheet" id="printable-answer-sheet">
+                <div className="sheet-header">
+                  <span className="sheet-badge">AI STUDY BUDDY · ASSIGNMENT ANSWER BOOK</span>
+                  <h2>{answerBookData.title}</h2>
+                  <div className="sheet-meta">
+                    <span><strong>Subject:</strong> {answerBookData.subject}</span>
+                    <span><strong>Date:</strong> {answerBookData.generatedDate || "Today"}</span>
+                    <span><strong>Questions:</strong> {answerBookData.totalQuestions}</span>
+                  </div>
+                </div>
+
+                <div className="sheet-questions-list">
+                  {answerBookData.qnaList.map((item, idx) => (
+                    <div key={idx} className="sheet-qna-block">
+                      <div className="sheet-question">
+                        <span className="q-tag">Q{item.qNumber || idx + 1}.</span>
+                        <h4>{item.question}</h4>
+                      </div>
+                      <div className="sheet-answer">
+                        <p>{item.answer}</p>
+                        {item.keyTakeaway && (
+                          <div className="sheet-takeaway">
+                            💡 <strong>Key Takeaway:</strong> {item.keyTakeaway}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="sheet-footer">
+                  <span>Student Submission Sheet</span>
+                  <span>Verified by AI Study Buddy</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

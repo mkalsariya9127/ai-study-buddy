@@ -261,6 +261,11 @@ export const pdfAPI = {
     formData.append("pdf", file);
     return await request("/pdf/analyze", { method: "POST", body: formData });
   },
+  generateAnswerSheet: async (file) => {
+    const formData = new FormData();
+    formData.append("pdf", file);
+    return await request("/pdf/generate-answersheet", { method: "POST", body: formData });
+  },
 };
 
 export const settingsAPI = {

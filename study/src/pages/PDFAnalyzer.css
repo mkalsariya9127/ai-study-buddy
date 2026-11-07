@@ -241,3 +241,212 @@
     width: 100%;
   }
 }
+
+
+/* Printable Answer Book Modal & Print Styles */
+.printable-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.printable-modal-content {
+  background: white;
+  width: 100%;
+  max-width: 850px;
+  max-height: 90vh;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.printable-modal-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: #f1f0fb;
+  border-bottom: 1px solid #e0def4;
+}
+
+.btn-print-primary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #7047eb;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-print-primary:hover {
+  background: #5d34d8;
+}
+
+.btn-modal-close {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  color: #666;
+  border: 1px solid #ccc;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.printable-sheet-scroll {
+  padding: 30px;
+  overflow-y: auto;
+  background: #fdfdfd;
+}
+
+.sheet-header {
+  border-bottom: 2px solid #7047eb;
+  padding-bottom: 18px;
+  margin-bottom: 25px;
+}
+
+.sheet-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #7047eb;
+  background: #efeaff;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.sheet-header h2 {
+  font-size: 22px;
+  color: #1a1a2e;
+  margin-bottom: 12px;
+}
+
+.sheet-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 13px;
+  color: #555;
+}
+
+.sheet-qna-block {
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #eee;
+}
+
+.sheet-question {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.sheet-question .q-tag {
+  font-weight: 800;
+  color: #7047eb;
+  font-size: 15px;
+}
+
+.sheet-question h4 {
+  font-size: 16px;
+  color: #1a1a2e;
+  line-height: 1.4;
+}
+
+.sheet-answer {
+  background: #f8f8fc;
+  border-left: 3px solid #7047eb;
+  padding: 14px 18px;
+  border-radius: 0 8px 8px 0;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.7;
+}
+
+.sheet-takeaway {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed #ddd;
+  font-size: 12px;
+  color: #666;
+}
+
+.sheet-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 1px solid #ddd;
+  font-size: 12px;
+  color: #888;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .printable-answer-sheet, .printable-answer-sheet * {
+    visibility: visible;
+  }
+  .printable-modal-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    background: white;
+    padding: 0;
+    margin: 0;
+  }
+  .printable-modal-content {
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-height: none;
+    overflow: visible;
+  }
+  .printable-modal-actions, .no-print {
+    display: none !important;
+  }
+  .printable-sheet-scroll {
+    overflow: visible;
+    padding: 0;
+  }
+  .printable-answer-sheet {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 15mm;
+    margin: 0;
+    font-size: 12pt;
+    line-height: 1.6;
+    color: #111;
+  }
+  .sheet-qna-block {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-bottom: 20px;
+    border-bottom: 1px dashed #bbb;
+    padding-bottom: 15px;
+  }
+}
