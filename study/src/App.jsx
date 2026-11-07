@@ -18,6 +18,7 @@ import Settings from "./pages/Settings";
 import VerifyOTP from "./pages/VerifyOTP";
 import PDFAnalyzer from "./pages/PDFAnalyzer";
 import StudyTimer from "./pages/StudyTimer";
+import Flashcards from "./pages/Flashcards";
 
 function App() {
   const routes = (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/pdf-analyzer" element={<PDFAnalyzer />} />
           <Route path="/study-timer" element={<StudyTimer />} />
+          <Route path="/flashcards" element={<Flashcards />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

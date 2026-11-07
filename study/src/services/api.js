@@ -248,6 +248,11 @@ export const quizAPI = {
 };
 
 export const aiAPI = {
+  solveImage: async (imageBase64, mimeType, prompt) =>
+    await request("/ai/solve-image", {
+      method: "POST",
+      body: JSON.stringify({ imageBase64, mimeType, prompt }),
+    }),
   chat: async (message, history = []) =>
     await request("/ai/chat", {
       method: "POST",
@@ -275,6 +280,14 @@ export const settingsAPI = {
       method: "PUT",
       body: JSON.stringify(settings),
     }),
+};
+
+export const flashcardsAPI = {
+  getAll: async (deck = "") => await request(`/flashcards${deck ? `?deck=${encodeURIComponent(deck)}` : ""}`, { method: "GET" }),
+  create: async (card) => await request("/flashcards", { method: "POST", body: JSON.stringify(card) }),
+  review: async (id, difficulty) => await request(`/flashcards/${id}/review`, { method: "PUT", body: JSON.stringify({ difficulty }) }),
+  delete: async (id) => await request(`/flashcards/${id}`, { method: "DELETE" }),
+  generateAI: async (topic, text) => await request("/flashcards/generate-ai", { method: "POST", body: JSON.stringify({ topic, text }) }),
 };
 
 export { API_BASE_URL, API_ORIGIN };

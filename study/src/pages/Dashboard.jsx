@@ -27,6 +27,7 @@ import {
   Trash2,
   X,
   RefreshCw,
+  Layers,
 } from "lucide-react";
 
 import "./Dashboard.css";
@@ -373,6 +374,11 @@ function Dashboard() {
           <Link to="/quiz" className="sidebar-link">
             <Brain size={18} />
             <span>Quiz Generator</span>
+          </Link>
+
+          <Link to="/flashcards" className="sidebar-link">
+            <Layers size={18} />
+            <span>3D Flashcards</span>
           </Link>
 
           <p className="menu-heading account-heading">ACCOUNT</p>

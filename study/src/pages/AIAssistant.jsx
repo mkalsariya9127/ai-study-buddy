@@ -19,6 +19,8 @@ import {
   MicOff,
   Volume2,
   VolumeX,
+  Camera,
+  X,
 } from "lucide-react";
 import "./AIAssistant.css";
 import { aiAPI } from "../services/api";
@@ -200,6 +202,31 @@ function AIAssistant() {
   const [speakingIndex, setSpeakingIndex] = useState(null);
   const bottomRef = useRef(null);
   const recognitionRef = useRef(null);
+  const [attachedImage, setAttachedImage] = useState(null);
+  const [attachedMimeType, setAttachedMimeType] = useState("image/jpeg");
+  const fileInputRef = useRef(null);
+
+  const handleImageSelect = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      alert("Please select an image file (PNG, JPG, JPEG).");
+      return;
+    }
+
+    setAttachedMimeType(file.type);
+    const reader = new FileReader();
+    reader.onload = () => {
+      setAttachedImage(reader.result);
+    };
+    reader.readAsDataURL(file);
+    e.target.value = "";
+  };
+
+  const removeAttachedImage = () => {
+    setAttachedImage(null);
+  };
 
   const toggleSpeechRecognition = () => {
     if (isListening) {
@@ -425,12 +452,16 @@ function AIAssistant() {
 
   const sendMessage = async (text = input) => {
     const message = text.trim();
-    if (!message || loading) return;
+    if ((!message && !attachedImage) || loading) return;
 
+    const currentImg = attachedImage;
+    const currentMime = attachedMimeType;
+    setAttachedImage(null);
     setInput("");
     setLoading(true);
 
     const timeString = getFormattedTimeString();
+    const displayMsg = message || "Please solve and clearly explain the problem shown in this image.";
 
     // Smart title generation if title is default
     const shouldUpdateTitle =
@@ -438,9 +469,9 @@ function AIAssistant() {
       activeSession.title === "Study Guidance & Overview";
 
     const newTitle = shouldUpdateTitle
-      ? message.length > 28
-        ? `${message.slice(0, 28)}...`
-        : message
+      ? displayMsg.length > 28
+        ? `${displayMsg.slice(0, 28)}...`
+        : displayMsg
       : activeSession.title;
 
     // Update with user message
@@ -453,30 +484,50 @@ function AIAssistant() {
           updatedAt: "Just now",
           messages: [
             ...(s.messages || []),
-            { role: "user", text: message, time: timeString },
+            { role: "user", text: displayMsg, time: timeString, image: currentImg },
           ],
         };
       })
     );
 
     try {
-      const res = await aiAPI.chat(message, messages);
-
-      if (res && res.success && res.reply) {
-        setSessions((prev) =>
-          prev.map((s) => {
-            if (s.id !== activeSessionId) return s;
-            return {
-              ...s,
-              updatedAt: "Just now",
-              messages: [
-                ...(s.messages || []),
-                { role: "assistant", text: res.reply, time: timeString },
-              ],
-            };
-          })
-        );
-        return;
+      let res;
+      if (currentImg) {
+        res = await aiAPI.solveImage(currentImg, currentMime, displayMsg);
+        if (res && res.success && res.solution) {
+          setSessions((prev) =>
+            prev.map((s) => {
+              if (s.id !== activeSessionId) return s;
+              return {
+                ...s,
+                updatedAt: "Just now",
+                messages: [
+                  ...(s.messages || []),
+                  { role: "assistant", text: res.solution, time: timeString },
+                ],
+              };
+            })
+          );
+          return;
+        }
+      } else {
+        res = await aiAPI.chat(displayMsg, messages);
+        if (res && res.success && res.reply) {
+          setSessions((prev) =>
+            prev.map((s) => {
+              if (s.id !== activeSessionId) return s;
+              return {
+                ...s,
+                updatedAt: "Just now",
+                messages: [
+                  ...(s.messages || []),
+                  { role: "assistant", text: res.reply, time: timeString },
+                ],
+              };
+            })
+          );
+          return;
+        }
       }
 
       // If backend returned an error message, show it clearly
@@ -708,6 +759,23 @@ function AIAssistant() {
                     </div>
 
                     <div className="ai-message-bubble">
+                      {message.image && (
+                        <div style={{ marginBottom: "10px" }}>
+                          <img
+                            src={message.image}
+                            alt="Uploaded problem"
+                            style={{
+                              maxWidth: "260px",
+                              maxHeight: "220px",
+                              borderRadius: "10px",
+                              objectFit: "contain",
+                              display: "block",
+                              background: "#f0f0f5",
+                              border: "1px solid #e0def4",
+                            }}
+                          />
+                        </div>
+                      )}
                       {formatMessageContent(message.text)}
                     </div>
 
@@ -776,6 +844,15 @@ function AIAssistant() {
         </section>
 
         <footer className="ai-input-section">
+          {attachedImage && (
+            <div className="ai-image-attachment-bar">
+              <img src={attachedImage} alt="Attachment" className="attachment-thumb" />
+              <span>📷 Photo attached for AI Vision solver</span>
+              <button type="button" onClick={removeAttachedImage} title="Remove image">
+                <X size={15} />
+              </button>
+            </div>
+          )}
           <form
             className="ai-input-box"
             onSubmit={(e) => {
@@ -784,12 +861,29 @@ function AIAssistant() {
             }}
           >
             <input
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              onChange={handleImageSelect}
+            />
+            <input
               type="text"
-              placeholder="Ask anything about React, Python, SQL, exams..."
+              placeholder={attachedImage ? "Ask something about this photo or leave blank to solve..." : "Ask anything about React, Python, SQL, exams..."}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               disabled={loading}
             />
+            <button
+              type="button"
+              className="ai-camera-btn"
+              onClick={() => fileInputRef.current?.click()}
+              title="Upload photo of equation or notes (Vision AI)"
+              disabled={loading}
+              aria-label="Upload photo"
+            >
+              <Camera size={18} />
+            </button>
             <button
               type="button"
               className={`ai-mic-btn ${isListening ? "listening" : ""}`}
@@ -802,7 +896,7 @@ function AIAssistant() {
             </button>
             <button
               type="submit"
-              disabled={!input.trim() || loading}
+              disabled={(!input.trim() && !attachedImage) || loading}
               aria-label="Send message"
             >
               <Send size={18} />
