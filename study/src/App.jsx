@@ -7,6 +7,7 @@ import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
+import VerifyOTP from "./pages/VerifyOTP";
 import Dashboard from "./pages/Dashboard";
 import AIAssistant from "./pages/AIAssistant";
 import MyCourses from "./pages/MyCourses";
@@ -15,10 +16,11 @@ import Notes from "./pages/Notes";
 import Quiz from "./pages/Quiz";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
-import VerifyOTP from "./pages/VerifyOTP";
 import PDFAnalyzer from "./pages/PDFAnalyzer";
 import StudyTimer from "./pages/StudyTimer";
 import Flashcards from "./pages/Flashcards";
+import StudyRoadmap from "./pages/StudyRoadmap";
+import GroupStudy from "./pages/GroupStudy";
 
 function App() {
   const routes = (
@@ -41,6 +43,8 @@ function App() {
           <Route path="/pdf-analyzer" element={<PDFAnalyzer />} />
           <Route path="/study-timer" element={<StudyTimer />} />
           <Route path="/flashcards" element={<Flashcards />} />
+          <Route path="/roadmap" element={<StudyRoadmap />} />
+          <Route path="/group-study" element={<GroupStudy />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

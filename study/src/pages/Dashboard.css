@@ -1496,3 +1496,141 @@
   color: #8c89a0;
   font-size: 13px;
 }
+
+
+/* GAMIFICATION & XP BANNER */
+.gamification-banner {
+  background: linear-gradient(135deg, #ffffff, #fbfaff);
+  border: 1px solid #e9e4ff;
+  border-radius: 18px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  box-shadow: 0 4px 18px rgba(105, 82, 220, 0.06);
+}
+
+.gm-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  min-width: 280px;
+}
+
+.gm-trophy-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #7047eb, #a855f7);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(112, 71, 235, 0.28);
+}
+
+.gm-info {
+  flex: 1;
+}
+
+.gm-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.gm-title-row h3 {
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: #1e1b4b;
+  margin: 0;
+}
+
+.gm-xp-badge {
+  background: #ede9fe;
+  color: #7047eb;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.gm-level-track {
+  height: 8px;
+  background: #f1f0fb;
+  border-radius: 999px;
+  overflow: hidden;
+  max-width: 320px;
+  margin-bottom: 6px;
+}
+
+.gm-level-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #7047eb, #ec4899);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.gm-next-level-text {
+  font-size: 0.76rem;
+  color: #8b87a4;
+  font-weight: 600;
+}
+
+.gm-badges-rack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.gm-badges-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  color: #948fb0;
+}
+
+.gm-badges-list {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.gm-badge-chip {
+  background: #faf7ff;
+  border: 1px solid #e0d7fe;
+  color: #5538ee;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.gm-badge-chip.empty {
+  color: #8c89a0;
+  border-style: dashed;
+  background: none;
+}
+
+/* QUICK ACCESS CUSTOM ICONS */
+.quick-icon.roadmap-quick {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.quick-icon.group-quick {
+  background: #eff6ff;
+  color: #2563eb;
+}

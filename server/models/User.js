@@ -141,6 +141,18 @@ const userSchema = new mongoose.Schema(
       type: Date,
       default: null,
     },
+    xpPoints: {
+      type: Number,
+      default: 0,
+    },
+    level: {
+      type: Number,
+      default: 1,
+    },
+    badges: {
+      type: [String],
+      default: ["Novice Scholar 🎓"],
+    },
   },
   {
     timestamps: true,

@@ -76,6 +76,7 @@ app.use("/api/ai", require("./routes/aiRoutes"));
 app.use("/api/pdf", require("./routes/pdfRoutes"));
 app.use("/api/settings", require("./routes/settingsRoutes"));
 app.use("/api/flashcards", require("./routes/flashcardRoutes"));
+app.use("/api/roadmaps", require("./routes/roadmapRoutes"));
 
 app.use((req, res) => {
   res.status(404).json({ success: false, message: "API route not found." });

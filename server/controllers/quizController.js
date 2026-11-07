@@ -1,5 +1,6 @@
 const QuizAttempt = require("../models/Quiz");
 const { emitDashboardChanged } = require("../socket");
+const { awardXP } = require("../utils/gamification");
 
 const reactQuestions = [
   {
@@ -106,6 +107,7 @@ const submitQuiz = async (req, res, next) => {
       answers: safeAnswers,
     });
 
+    await awardXP(req.user._id, percentage >= 70 ? 100 : 40, percentage >= 80 ? "Quiz Champion 🏆" : null);
     emitDashboardChanged(req.user._id);
     res.status(200).json({
       success: true,

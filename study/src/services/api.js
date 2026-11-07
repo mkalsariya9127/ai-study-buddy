@@ -290,4 +290,14 @@ export const flashcardsAPI = {
   generateAI: async (topic, text) => await request("/flashcards/generate-ai", { method: "POST", body: JSON.stringify({ topic, text }) }),
 };
 
+export const roadmapAPI = {
+  getAll: async () => await request("/roadmaps", { method: "GET" }),
+  generateAI: async (goal, durationDays) =>
+    await request("/roadmaps", { method: "POST", body: JSON.stringify({ goal, durationDays }) }),
+  toggleMilestone: async (id, day) =>
+    await request(`/roadmaps/${id}/milestones/${day}/toggle`, { method: "PATCH" }),
+  delete: async (id) =>
+    await request(`/roadmaps/${id}`, { method: "DELETE" }),
+};
+
 export { API_BASE_URL, API_ORIGIN };

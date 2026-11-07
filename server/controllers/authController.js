@@ -36,6 +36,9 @@ const publicUser = (user) => ({
   photo: user.photo,
   lastLoginAt: user.lastLoginAt,
   createdAt: user.createdAt,
+  xpPoints: user.xpPoints || 0,
+  level: user.level || 1,
+  badges: user.badges || ["Novice Scholar 🎓"],
 });
 
 const validateCredentials = (email, password) =>

@@ -28,6 +28,9 @@ import {
   X,
   RefreshCw,
   Layers,
+  Map,
+  Users,
+  Award,
 } from "lucide-react";
 
 import "./Dashboard.css";
@@ -340,7 +343,7 @@ function Dashboard() {
           </div>
           <h3>{studentName}</h3>
           <p>{profile.course || "Keep learning, keep growing!"}</p>
-          <span className="student-level">Level 1 · Learner</span>
+          <span className="student-level">Level {profile.level || 1} · {profile.xpPoints || 0} XP</span>
         </div>
 
         <nav className="sidebar-menu">
@@ -379,6 +382,16 @@ function Dashboard() {
           <Link to="/flashcards" className="sidebar-link">
             <Layers size={18} />
             <span>3D Flashcards</span>
+          </Link>
+
+          <Link to="/roadmap" className="sidebar-link">
+            <Map size={18} />
+            <span>AI Study Roadmap</span>
+          </Link>
+
+          <Link to="/group-study" className="sidebar-link">
+            <Users size={18} />
+            <span>Group Study Room</span>
           </Link>
 
           <p className="menu-heading account-heading">ACCOUNT</p>
@@ -604,6 +617,47 @@ function Dashboard() {
           </div>
         </section>
 
+        {/* GAMIFICATION & XP REWARD SHOWCASE */}
+        <section className="gamification-banner">
+          <div className="gm-left">
+            <div className="gm-trophy-icon">
+              <Award size={28} />
+            </div>
+            <div className="gm-info">
+              <div className="gm-title-row">
+                <h3>Level {profile.level || 1} · {profile.level >= 10 ? "Grandmaster Scholar 👑" : profile.level >= 5 ? "Master Scholar 🥇" : profile.level >= 2 ? "Dedicated Scholar 🥈" : "Novice Learner 🥉"}</h3>
+                <span className="gm-xp-badge">{profile.xpPoints || 0} Total XP</span>
+              </div>
+              <div className="gm-level-track">
+                <div
+                  className="gm-level-fill"
+                  style={{ width: `${Math.min(100, Math.max(8, ((profile.xpPoints || 0) % 100)))}%` }}
+                />
+              </div>
+              <span className="gm-next-level-text">
+                {100 - ((profile.xpPoints || 0) % 100)} XP to Next Level
+              </span>
+            </div>
+          </div>
+
+          <div className="gm-badges-rack">
+            <span className="gm-badges-label">UNLOCKED BADGES</span>
+            <div className="gm-badges-list">
+              {Array.isArray(profile.badges) && profile.badges.length > 0 ? (
+                profile.badges.map((b, i) => (
+                  <span key={i} className="gm-badge-chip">
+                    {b}
+                  </span>
+                ))
+              ) : (
+                <span className="gm-badge-chip empty">
+                  Study & complete quizzes to unlock badges!
+                </span>
+              )}
+            </div>
+          </div>
+        </section>
+
         {/* DASHBOARD COLUMNS */}
         <section className="dashboard-content-grid">
           <div className="dashboard-left-column">
@@ -761,6 +815,18 @@ function Dashboard() {
                   <span className="quick-icon quiz-quick"><Brain /></span>
                   <strong>Generate Quiz</strong>
                   <small>Test your knowledge</small>
+                </Link>
+
+                <Link to="/roadmap" className="quick-access-link">
+                  <span className="quick-icon roadmap-quick"><Map /></span>
+                  <strong>AI Roadmap</strong>
+                  <small>Step-by-step path</small>
+                </Link>
+
+                <Link to="/group-study" className="quick-access-link">
+                  <span className="quick-icon group-quick"><Users /></span>
+                  <strong>Group Study</strong>
+                  <small>Study with peers</small>
                 </Link>
               </div>
             </div>

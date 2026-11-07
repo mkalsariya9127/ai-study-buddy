@@ -1,5 +1,6 @@
 const StudySession = require("../models/StudySession");
 const { emitDashboardChanged } = require("../socket");
+const { awardXP } = require("../utils/gamification");
 const {
   getKolkataDateString,
   getLastNDays,
@@ -59,6 +60,7 @@ const logSession = async (req, res, next) => {
       return res.status(200).json({ success: true, data: session, duplicate: true });
     }
 
+    await awardXP(req.user._id, 50, "Focus Champion ⏱️");
     emitDashboardChanged(req.user._id);
 
     res.status(201).json({

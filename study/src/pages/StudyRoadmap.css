@@ -1,0 +1,476 @@
+.roadmap-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
+  color: #1e293b;
+  font-family: inherit;
+}
+
+.roadmap-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.rm-badge {
+  display: inline-block;
+  background: #ede9fe;
+  color: #7047eb;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+.roadmap-header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 6px 0;
+}
+
+.roadmap-header p {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.btn-create-rm {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #7047eb, #8b5cf6);
+  color: #ffffff;
+  border: none;
+  padding: 11px 20px;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(112, 71, 235, 0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-create-rm:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(112, 71, 235, 0.35);
+}
+
+/* ROADMAP TABS BAR */
+.rm-tabs-bar {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+}
+
+.rm-tab-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.rm-tab-chip.active {
+  background: #7047eb;
+  color: #ffffff;
+  border-color: #7047eb;
+  box-shadow: 0 4px 12px rgba(112, 71, 235, 0.25);
+}
+
+.rm-delete-btn {
+  background: none;
+  border: none;
+  color: inherit;
+  opacity: 0.6;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+  transition: opacity 0.2s;
+}
+
+.rm-delete-btn:hover {
+  opacity: 1;
+}
+
+/* CONTENT LAYOUT */
+.rm-content-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* PROGRESS OVERVIEW */
+.rm-overview-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.rm-overview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.rm-overview-header h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 6px 0;
+}
+
+.rm-overview-header p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #64748b;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.rm-progress-badge {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.rm-pct {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #7047eb;
+  line-height: 1;
+}
+
+.rm-progress-badge span:last-child {
+  font-size: 0.78rem;
+  color: #64748b;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.rm-progress-track {
+  height: 10px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.rm-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #7047eb, #10b981);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+/* TIMELINE */
+.rm-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.rm-milestone-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 18px 20px;
+  transition: all 0.2s ease;
+}
+
+.rm-milestone-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+.rm-milestone-card.completed {
+  background: #f8fafc;
+  border-color: #dcfce7;
+}
+
+.rm-milestone-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 60px;
+}
+
+.rm-check-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+}
+
+.rm-check-btn:hover {
+  transform: scale(1.15);
+}
+
+.rm-day-pill {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.rm-milestone-card.completed .rm-day-pill {
+  color: #15803d;
+  background: #dcfce7;
+}
+
+.rm-milestone-body {
+  flex: 1;
+}
+
+.rm-milestone-body h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 6px 0;
+}
+
+.rm-milestone-card.completed .rm-milestone-body h3 {
+  color: #64748b;
+  text-decoration: line-through;
+}
+
+.rm-desc {
+  font-size: 0.88rem;
+  color: #475569;
+  margin: 0 0 10px 0;
+  line-height: 1.45;
+}
+
+.rm-tasks-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rm-tasks-list li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.84rem;
+  color: #334155;
+  background: #f8fafc;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+.rm-milestone-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.rm-status-text {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+.rm-milestone-card.completed .rm-status-text {
+  color: #16a34a;
+}
+
+/* EMPTY STATE */
+.rm-empty-state {
+  text-align: center;
+  padding: 70px 20px;
+  background: #ffffff;
+  border: 1px dashed #cbd5e1;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.rm-empty-state h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.rm-empty-state p {
+  color: #64748b;
+  font-size: 0.95rem;
+  max-width: 440px;
+  margin: 0 0 10px 0;
+}
+
+/* MODAL */
+.rm-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.rm-modal-card {
+  background: #ffffff;
+  border-radius: 18px;
+  max-width: 500px;
+  width: 100%;
+  padding: 28px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+  animation: rmModalIn 0.2s ease-out;
+}
+
+@keyframes rmModalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.rm-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.rm-modal-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rm-modal-title h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.rm-close-btn {
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  transition: all 0.15s;
+}
+
+.rm-close-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.rm-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.rm-modal-form label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: -6px;
+}
+
+.rm-modal-form input,
+.rm-modal-form select {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  color: #1e293b;
+  background: #f8fafc;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.rm-modal-form input:focus,
+.rm-modal-form select:focus {
+  border-color: #7047eb;
+  background: #ffffff;
+}
+
+.rm-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-cancel {
+  padding: 10px 18px;
+  background: #f1f5f9;
+  color: #475569;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-submit {
+  padding: 10px 20px;
+  background: #7047eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px rgba(112, 71, 235, 0.25);
+  transition: opacity 0.2s;
+}
+
+.btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

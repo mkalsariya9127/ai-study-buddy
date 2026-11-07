@@ -1,6 +1,7 @@
 const Task = require("../models/Task");
 const { getKolkataDateString } = require("../utils/dateTime");
 const { emitDashboardChanged } = require("../socket");
+const { awardXP } = require("../utils/gamification");
 
 // @desc    Get all tasks for user
 // @route   GET /api/tasks
@@ -38,6 +39,9 @@ const createTask = async (req, res, next) => {
       completed: false,
     });
 
+    if (task.completed) {
+      await awardXP(req.user._id, 25);
+    }
     emitDashboardChanged(req.user._id);
     res.status(201).json({ success: true, message: "Task created successfully", data: task });
   } catch (error) {
@@ -58,6 +62,9 @@ const toggleTask = async (req, res, next) => {
     task.completed = !task.completed;
     await task.save();
 
+    if (task.completed) {
+      await awardXP(req.user._id, 25);
+    }
     emitDashboardChanged(req.user._id);
     res.status(200).json({ success: true, data: task });
   } catch (error) {
@@ -108,6 +115,9 @@ const updateTask = async (req, res, next) => {
     }
 
     const updatedTask = await task.save();
+    if (task.completed) {
+      await awardXP(req.user._id, 25);
+    }
     emitDashboardChanged(req.user._id);
     res.status(200).json({ success: true, data: updatedTask });
   } catch (error) {
